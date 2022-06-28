@@ -14,7 +14,7 @@ export default function Letter({
         selected && "selected",
         hidden && "hidden"
       )}
-      onClick={hidden ? onSelectLetter : undefined}
+      onClick={onSelectLetter}
     >
       {letter}
     </div>

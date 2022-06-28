@@ -3,16 +3,29 @@ import Phrase from "./components/Phrase";
 import { countAllLetters, countLetters } from "./util";
 
 import "./App.css";
-import { useKey, useKeyPress } from "react-use";
+import { useCopyToClipboard, useKey } from "react-use";
 
 const theAlphabet = "abcdefghijklmnopqrstuvwxyz";
 
 function App() {
   const [quote, setQuote] = useState();
   const [quoteAuthor, setQuoteAuthor] = useState();
-  const [translationMatrix, setTranslationMatrix] = useState();
+  const [translationMatrix, setTranslationMatrix] = useState({});
   const [selectedLetter, setSelectedLetter] = useState();
   const [fetchNewQuote, setFetchNewQuote] = useState(true);
+  const [copyState, copyToClipboard] = useCopyToClipboard();
+
+  const solved = Object.keys(translationMatrix).length === 0;
+
+  const copySolvedToClipboard = () => {
+    copyToClipboard(`${quote}\r\n-${quoteAuthor}`);
+  };
+
+  const updateSelectedLetter = (letter) => {
+    if (!Object.keys(translationMatrix).includes(letter)) return;
+
+    setSelectedLetter(letter);
+  };
 
   const getNewQuote = async () => {
     const response = await fetch("https://quotable.io/random");
@@ -68,8 +81,6 @@ function App() {
     return () => (cancelled = true);
   }, [fetchNewQuote]);
 
-  const solved = Object.keys(translationMatrix || {}).length === 0;
-
   return (
     <>
       <header>Crypto Quotes</header>
@@ -77,9 +88,11 @@ function App() {
         <Phrase
           phrase={quote}
           selectedLetter={selectedLetter}
-          onSelectLetter={setSelectedLetter}
-          hiddenLetters={Object.keys(translationMatrix || {})}
-          maskedLetters={translationMatrix || {}}
+          onSelectLetter={
+            !solved ? updateSelectedLetter : copySolvedToClipboard
+          }
+          hiddenLetters={Object.keys(translationMatrix)}
+          maskedLetters={translationMatrix}
         />
         {solved && <div className="author">{quoteAuthor}</div>}
         {solved && (

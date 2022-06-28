@@ -14,7 +14,7 @@ export default function Word({
           letter={maskedLetters[letter.toLowerCase()] || letter}
           hidden={Object.keys(maskedLetters).includes(letter.toLowerCase())}
           selected={letter.toLowerCase() === selectedLetter}
-          onSelectLetter={() => onSelectLetter(letter)}
+          onSelectLetter={() => onSelectLetter(letter.toLowerCase())}
           key={`${letter}-${i}`}
         />
       ))}
