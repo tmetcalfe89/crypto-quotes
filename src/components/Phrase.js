@@ -1,6 +1,5 @@
 import Word from "./Word";
 import "./Phrase.css";
-import { useEffect, useState } from "react";
 
 export default function Phrase({
   phrase = "",

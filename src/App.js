@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Phrase from "./components/Phrase";
-import { countAllLetters, countLetters } from "./util";
+import { countAllLetters, countLetters, pickRandomFromArray } from "./util";
 
 import "./App.css";
 import { useCopyToClipboard, useKey } from "react-use";
@@ -13,7 +13,7 @@ function App() {
   const [translationMatrix, setTranslationMatrix] = useState({});
   const [selectedLetter, setSelectedLetter] = useState();
   const [fetchNewQuote, setFetchNewQuote] = useState(true);
-  const [copyState, copyToClipboard] = useCopyToClipboard();
+  const [, copyToClipboard] = useCopyToClipboard();
 
   const solved = Object.keys(translationMatrix).length === 0;
 
@@ -58,10 +58,13 @@ function App() {
     let i = 0;
     while (countAllLetters(newCryptoQuote) > countAllLetters(quote) * 0.5) {
       const realLetter = letters[i++].letter;
-      const fakeLetter = alphabet.splice(
-        Math.floor(Math.random() * alphabet.length),
-        1
-      )[0];
+      let fakeLetter = pickRandomFromArray(
+        alphabet.filter(
+          (letter) =>
+            letter !== realLetter &&
+            !Object.values(newTranslationMatrix).includes(letter)
+        )
+      );
       newCryptoQuote = newCryptoQuote.replaceAll(realLetter, "_");
       newTranslationMatrix[realLetter] = fakeLetter;
     }

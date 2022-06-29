@@ -22,3 +22,6 @@ export const isLetter = (string = "") =>
 
 export const createCompoundClassString = (...classes) =>
   classes.filter((thisClass) => thisClass).join(" ");
+
+export const pickRandomFromArray = (arr) =>
+  arr[Math.floor(Math.random() * arr.length)];
