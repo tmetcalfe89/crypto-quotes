@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/crypto-quotes/static/css/main.9ff47eaf.css",
+    "main.css": "/crypto-quotes/static/css/main.ac65302c.css",
     "main.js": "/crypto-quotes/static/js/main.64069cfb.js",
     "index.html": "/crypto-quotes/index.html",
-    "main.9ff47eaf.css.map": "/crypto-quotes/static/css/main.9ff47eaf.css.map",
+    "main.ac65302c.css.map": "/crypto-quotes/static/css/main.ac65302c.css.map",
     "main.64069cfb.js.map": "/crypto-quotes/static/js/main.64069cfb.js.map"
   },
   "entrypoints": [
-    "static/css/main.9ff47eaf.css",
+    "static/css/main.ac65302c.css",
     "static/js/main.64069cfb.js"
   ]
 }
